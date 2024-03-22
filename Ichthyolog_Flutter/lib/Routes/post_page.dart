@@ -23,6 +23,8 @@ class PostPage extends StatefulWidget {
 
 class PostPageState extends State<PostPage> {
   String jwt = '';
+  int _current = 0;
+  final CarouselController _controller = CarouselController();
   Map<String, dynamic> decodedJWT = {};
   final httpHelpers = HttpHelpers();
   final helpers = Helpers();
@@ -100,32 +102,60 @@ class PostPageState extends State<PostPage> {
                                       : const SizedBox.shrink()
                                 ],
                               ))),
-                      ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxHeight:
-                                MediaQuery.of(context).size.height * 3 / 8.25,
-                            minWidth: MediaQuery.of(context).size.width,
-                            maxWidth: MediaQuery.of(context).size.width,
-                          ),
-                          child: FittedBox(
-                              clipBehavior: Clip.hardEdge,
-                              fit: BoxFit.cover,
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: CarouselSlider(
-                                  options: CarouselOptions(height: 400.0),
-                                  items:
-                                      snapshotPost.data!.sightingPics.map((i) {
-                                    return Builder(
-                                      builder: (BuildContext context) {
-                                        return Image(
-                                          image: NetworkImage(i),
-                                        );
-                                      },
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: CarouselSlider(
+                              carouselController: _controller,
+                              options: CarouselOptions(
+                                  aspectRatio: 1.2,
+                                  enlargeCenterPage: true,
+                                  onPageChanged: (index, reason) {
+                                    setState(() {
+                                      _current = index;
+                                    });
+                                  }),
+                              items: snapshotPost.data!.sightingPics.map((i) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    return Image(
+                                      image: NetworkImage(i),
                                     );
-                                  }).toList(),
+                                  },
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: snapshotPost.data!.sightingPics
+                                .asMap()
+                                .entries
+                                .map((entry) {
+                              return GestureDetector(
+                                onTap: () =>
+                                    _controller.animateToPage(entry.key),
+                                child: Container(
+                                  width: 8.0,
+                                  height: 8.0,
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 8.0, horizontal: 4.0),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: (Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black)
+                                          .withOpacity(_current == entry.key
+                                              ? 0.9
+                                              : 0.4)),
                                 ),
-                              ))),
+                              );
+                            }).toList(),
+                          )
+                        ],
+                      ),
                       Container(
                           padding: const EdgeInsets.only(
                               left: 20, right: 20, top: 15, bottom: 7),
