@@ -377,7 +377,7 @@ class HomePageState extends State<HomePage> {
                                                       ElevatedButton.styleFrom(
                                                           backgroundColor:
                                                               const Color
-                                                                      .fromARGB(
+                                                                  .fromARGB(
                                                                   255,
                                                                   80,
                                                                   170,
@@ -394,11 +394,8 @@ class HomePageState extends State<HomePage> {
                                                       ElevatedButton.styleFrom(
                                                           backgroundColor:
                                                               const Color
-                                                                      .fromARGB(
-                                                                  255,
-                                                                  170,
-                                                                  80,
-                                                                  80)),
+                                                                  .fromARGB(255,
+                                                                  170, 80, 80)),
                                                   child: const Text("Cancel",
                                                       style: TextStyle(
                                                           fontSize: 12)),

@@ -110,17 +110,21 @@ class PostPageState extends State<PostPage> {
                           child: FittedBox(
                               clipBehavior: Clip.hardEdge,
                               fit: BoxFit.cover,
-                              child: CarouselSlider(
-                                options: CarouselOptions(height: 400.0),
-                                items: snapshotPost.data!.sightingPics.map((i) {
-                                  return Builder(
-                                    builder: (BuildContext context) {
-                                      return Image(
-                                        image: NetworkImage(i),
-                                      );
-                                    },
-                                  );
-                                }).toList(),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: CarouselSlider(
+                                  options: CarouselOptions(height: 400.0),
+                                  items:
+                                      snapshotPost.data!.sightingPics.map((i) {
+                                    return Builder(
+                                      builder: (BuildContext context) {
+                                        return Image(
+                                          image: NetworkImage(i),
+                                        );
+                                      },
+                                    );
+                                  }).toList(),
+                                ),
                               ))),
                       Container(
                           padding: const EdgeInsets.only(
@@ -266,6 +270,7 @@ class PostPageState extends State<PostPage> {
                   ))),
             );
           } else if (snapshotPost.hasError) {
+            print(snapshotPost.error);
             return const NoticeDialog(
                 content: 'Post not found! Please try again');
           } else {

@@ -231,7 +231,6 @@ class HttpHelpers {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    print(response.body);
     if (response.body == 'Posts not found') {
       return Future.error('Posts Not Found');
     } else if (response.statusCode != 200) {

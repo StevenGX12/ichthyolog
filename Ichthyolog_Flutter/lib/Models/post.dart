@@ -10,8 +10,8 @@ class Post {
   final String title;
   final String description;
   final List<String> sightingPics;
-  final String uploadTime;
-  final String sightingTime;
+  final String? uploadTime;
+  final String? sightingTime;
   final String sightingLocation;
   final String? sightingCoordinates;
   final String authorPfp;
@@ -47,15 +47,17 @@ class Post {
       this.verifier});
 
   factory Post.fromJson(Map<String, dynamic> json) {
+    var sightingImages = json['sightingimages'];
+    List<String> sightingImagesList = List<String>.from(sightingImages);
     return Post(
       postid: json['postid'],
       userid: json['userid'],
       authorname: json['username'],
       title: json['title'],
       description: json['description'] ?? 'Not specified',
-      sightingPics: json['sightingimages'],
+      sightingPics: sightingImagesList.map((e) => e.toString()).toList(),
       uploadTime: DateFormat("hh:mm a, dd/MM/yyyy")
-          .format(DateTime.parse(json['time'])),
+          .format(DateTime.parse(json['uploadtime'])),
       sightingLocation: json['sightinglocation'] ?? 'Not specified',
       sightingCoordinates: json['sightinglocation'] ?? 'Not specified',
       sightingTime: DateFormat("hh:mm a, dd/MM/yyyy")
@@ -66,8 +68,8 @@ class Post {
       family: json['family'],
       genus: json['genus'],
       species: json['species'],
-      verified: json['verified'],
-      flagged: json['flagged'],
+      verified: json['isverified'],
+      flagged: json['isflagged'],
       verifier: json['verifier'],
     );
   }
