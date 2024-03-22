@@ -147,6 +147,7 @@ class ExpertApplicationPageState extends State<ExpertApplicationPage> {
                       )
                     ]));
               } else {
+                print(snapshot.error);
                 return const Expanded(
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -791,11 +792,8 @@ class ExpertApplicationState extends State<ExpertApplication> {
                                                                 .shrinkWrap,
                                                         backgroundColor:
                                                             const Color
-                                                                    .fromARGB(
-                                                                255,
-                                                                80,
-                                                                170,
-                                                                121)),
+                                                                .fromARGB(255,
+                                                                80, 170, 121)),
                                                     child:
                                                         const Text("Approve")),
                                                 ElevatedButton(
@@ -809,11 +807,8 @@ class ExpertApplicationState extends State<ExpertApplication> {
                                                                 .shrinkWrap,
                                                         backgroundColor:
                                                             const Color
-                                                                    .fromARGB(
-                                                                255,
-                                                                170,
-                                                                80,
-                                                                80)),
+                                                                .fromARGB(255,
+                                                                170, 80, 80)),
                                                     child: const Text("Cancel"),
                                                     onPressed: () {
                                                       Navigator.pop(context);

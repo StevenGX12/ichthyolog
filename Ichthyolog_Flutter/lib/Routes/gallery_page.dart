@@ -114,6 +114,8 @@ class GalleryPageState extends State<GalleryPage> {
               ),
             );
           } else if (snapshot.hasError) {
+            print(snapshot.error);
+            print(snapshot.stackTrace);
             return const NoticeDialog(
                 content: 'Error fetching posts. Please try again!');
           } else {
