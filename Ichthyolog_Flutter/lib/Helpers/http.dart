@@ -373,7 +373,7 @@ class HttpHelpers {
         'description': description,
         'sightingLocation': sightingLocation,
         'sightingTime': sightingTime,
-        'imageURL': imageURLs,
+        'imageURLs': imageURLs,
         '_class': class_,
         'order': order,
         'family': family,
